@@ -10,11 +10,13 @@ import * as React from 'react';
 import { createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import ChatScreen from '../screens/ChatScreen';
+import CameraScreen from '../screens/CameraScreen';
 import { MainTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 import { ListViewBase } from 'react-native';
 import { MaterialCommunityIcons ,AntDesign, Zocial } from '@expo/vector-icons'; 
+import CallScreen from '../screens/CallScreen';
+import StatusScreen from '../screens/StatusScreen';
 
 const MainTab = createMaterialTopTabNavigator<MainTabParamList>();
 
@@ -33,7 +35,7 @@ export default function BottomTabNavigator() {
       }}>
       <MainTab.Screen
         name="Camera"
-        component={TabOneNavigator}
+        component={CameraScreen}
         options={{
           tabBarLabelStyle: {fontWeight : "bold"},
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="camera-iris" size={24} color={color} />,
@@ -41,14 +43,14 @@ export default function BottomTabNavigator() {
       />
       <MainTab.Screen
         name="Chats"
-        component={TabTwoNavigator}
+        component={ChatScreen}
         options={{
           tabBarIcon: ({ color }) => <AntDesign name="message1" size={24} color={color} />,
         }}
       />
        <MainTab.Screen
         name="Status"
-        component={TabOneNavigator}
+        component={StatusScreen}
         options={{
           tabBarLabelStyle: {fontWeight : "bold"},
           tabBarIcon: ({ color }) => <Zocial name="statusnet" size={24} color={color} />,
@@ -56,7 +58,7 @@ export default function BottomTabNavigator() {
       />
       <MainTab.Screen
         name="Calls"
-        component={TabTwoNavigator}
+        component={CallScreen}
         options={{
           tabBarIcon: ({ color }) => <Ionicons name="ios-call-outline" size={24} color={color} />,
         }}
@@ -73,30 +75,30 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const ChatsStack = createStackNavigator<MainTabParamList>();
 
-function TabOneNavigator() {
+function ChatsStackNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
+    <ChatsStack.Navigator>
+      <ChatsStack.Screen
+        name="Chats"
+        component={ChatScreen}
         options={{ headerTitle: 'Tab One Title' }}
       />
-    </TabOneStack.Navigator>
+    </ChatsStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const StatusStack = createStackNavigator<MainTabParamList>();
 
-function TabTwoNavigator() {
+function StackStatusNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
+    <StatusStack.Navigator>
+      <StatusStack.Screen
+        name="Status"
+        component={StatusScreen}
         options={{ headerTitle: 'Tab Two Title' }}
       />
-    </TabTwoStack.Navigator>
+    </StatusStack.Navigator>
   );
 }
